@@ -124,8 +124,7 @@
       accept="image/*"
       style="display:none;"
     />
-    <!-- (change)="onFileSelected($event)" -->
-
+    <!-- (change)="onFileSelected($event)"  it has to be on <input>-->
     <!-- Previews -->
     <div class="previews" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
       <div *ngFor="let img of productImagesPreview; let i = index" style="position:relative;">
