@@ -108,7 +108,7 @@ export class CounterComponent {
 }
 ```
 
-## 7-Summary Table
+## 7- Summary Table
 
 | Approach             | Best for                        | Pros                               | Cons                           |
 |---------------------|---------------------------------|-----------------------------------|--------------------------------|
