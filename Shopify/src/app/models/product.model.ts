@@ -1,5 +1,4 @@
-import { AttributeType } from './attribute.model';
-import { ProductCondition } from './category.model';
+import { AttributeType, ProductCondition } from './attribute.model';
 
 
 export interface Product {
@@ -22,7 +21,7 @@ export interface ProductDTO {
   categoryId: number;
   categoryName?: string;
   // condition?: string;
-  condition?: ProductCondition;
+  condition: ProductCondition;
   attributeValues?: any[];
   media?: { 
     url: string; 

@@ -1,3 +1,4 @@
+
 export enum AttributeType {
   STRING = 'STRING',
   NUMBER = 'NUMBER',
@@ -22,3 +23,14 @@ export interface CategoryAttributeDTO {
   categoryName: string;
   inherited: boolean;
 }
+
+
+export enum ProductCondition {
+  NEW = 'new',
+  USED = 'used',
+}
+
+export const ProductConditionTranslate = {
+  [ProductCondition.NEW] : 'نو',
+  [ProductCondition.USED]: 'دست دوم'
+} as const 
