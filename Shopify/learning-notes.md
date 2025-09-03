@@ -11,7 +11,7 @@ In Angular, **state** simply means the data your app needs to remember at a give
 - **Locally**: inside one component
 - **Globally**: shared across multiple components
 
-## 2-Why Do We Need "State Management"?
+## 2- Why Do We Need "State Management"?
 
 Without a clear way to manage state:
 - Data becomes hard to share between components
