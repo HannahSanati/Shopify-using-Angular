@@ -1,4 +1,4 @@
-## 1-What is "State" in Angular?
+## 1- What is "State" in Angular?
 In Angular, **state** simply means the data your app needs to remember at a given time.
 
 ### Examples of state:
@@ -146,3 +146,4 @@ But in **TanStack Query**, a query is much more powerful than a normal HttpClien
 A query = a data-fetching request.  
 
 You need to provide it at the **root of your Angular app**.
+
