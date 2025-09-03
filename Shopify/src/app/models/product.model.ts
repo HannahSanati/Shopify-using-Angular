@@ -29,7 +29,14 @@ export interface ProductDTO {
     type?: 'image' | 'video';
   }[];
 }
+//   id: number;
+//   title: string;
+//   description: string;
+//   price: number;
+//   stock: number;
+//   categoryId: number;
   // condition?: ProductCondition;
+//   attributeValues: any[];
 
 
 
