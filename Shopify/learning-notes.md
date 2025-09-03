@@ -116,3 +116,13 @@ export class CounterComponent {
 | Shared Service       | Multiple components need state  | Easy to set up, centralized        | No built-in undo/history       |
 | NgRx / NGXS / Akita  | Large apps with complex state   | Predictable, debug tools, scalable | More boilerplate, learning curve |
 | Signals Store        | Modern, fine-grained reactivity | Simple syntax, efficient updates   | Newer API (still evolving)     |
+
+
+## 8-titles what I learned
+three handshake
+http
+methods GET(bodyless) get data/ POST(body) post data insert / PUT (body) update / PATCH / DELETE (bodyless)
+header: any data AMA more use for server configuration or permissions 
+path
+protocol version 1.1 & 2.0? more open connection 6 to infinity 
+body : any data that backend want 
