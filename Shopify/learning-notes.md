@@ -41,7 +41,7 @@ export class CounterComponent {
 }
 ```
 
-## 4-Shared State (between components)
+## 4- Shared State (between components)
 * Use services to store state in memory.
 * Inject the service into any component that needs the state.
 Example:
