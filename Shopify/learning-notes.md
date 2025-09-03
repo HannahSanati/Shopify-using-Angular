@@ -136,7 +136,7 @@ body : any data that backend want
 * Background updates
 TanStack Query automates all of this. It’s like a smart assistant for API calls.
 
-## 10-Setup QueryClient
+## 10- Setup QueryClient
 
 Think of QueryClient as the brain that manages all your queries.  
 (A query is just a request to fetch some data from a server, like an API call.)  
