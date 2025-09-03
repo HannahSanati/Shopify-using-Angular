@@ -41,3 +41,25 @@ export class CounterComponent {
 }
 ```
 
+## 4-Shared State (between components)
+* Use services to store state in memory.
+* Inject the service into any component that needs the state.
+Example:
+@Injectable({ providedIn: 'root' })
+export class CartService {
+  items: string[] = [];
+  addItem(item: string) { this.items.push(item); }
+}
+```ts
+@Component({ /* ... */ })
+export class ProductComponent {
+  constructor(private cart: CartService) {}
+  addToCart(product: string) { this.cart.addItem(product); }
+}
+
+@Component({ /* ... */ })
+export class CartComponent {
+  constructor(public cart: CartService) {}
+}
+```
+Both components share the same CartService instance.
