@@ -107,3 +107,12 @@ export class CounterComponent {
   constructor(public store: CounterStore) {}
 }
 ```
+
+## 7-Summary Table
+
+| Approach             | Best for                        | Pros                               | Cons                           |
+|---------------------|---------------------------------|-----------------------------------|--------------------------------|
+| Local State          | Small, self-contained components | Simple, no extra setup             | Hard to share                  |
+| Shared Service       | Multiple components need state  | Easy to set up, centralized        | No built-in undo/history       |
+| NgRx / NGXS / Akita  | Large apps with complex state   | Predictable, debug tools, scalable | More boilerplate, learning curve |
+| Signals Store        | Modern, fine-grained reactivity | Simple syntax, efficient updates   | Newer API (still evolving)     |
