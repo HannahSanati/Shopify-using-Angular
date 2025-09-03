@@ -1,0 +1,110 @@
+
+body {
+  margin: 0;
+  font-family: 'iran_yekan', sans-serif !important;
+  direction: rtl;
+  background: var(--page-bg);
+  color: var(--text-color);
+}
+.page-container {
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: #f1f5f9;
+  font-family: "iran_yekan", sans-serif;
+  color: #1e293b;
+}
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+p-card {
+  background: var(--card-bg) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  border-radius: 0.75rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.form-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border: 1.5px solid #cbd5e1; 
+}
+.form-group {
+  display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;  
+}
+.form-group label {
+  margin-bottom: 0.75rem; 
+  font-weight: 500;
+  color: var(--text-color);
+}
+input[pInputText],
+textarea[pInputTextarea],
+p-chips {
+  background-color: #f8fafc !important; 
+  border: 1px solid #cbd5e1 !important; 
+  border-radius: 0.5rem !important;
+  padding: 0.5rem !important;
+  color: #1e293b !important; 
+  font-family: 'iran_yekan', sans-serif !important;
+}
+
+input[pInputText]:focus,
+textarea[pInputTextarea]:focus,
+p-inputNumber:focus,
+p-chips:focus {
+  border-color: #3b82f6 !important; 
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2) !important;
+}
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.submit-btn, .p-button {
+  background: var(--accent-color) !important;
+  color: var(--text-color) !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid var(--border-color) !important;
+  font-weight: 500 !important;
+  transition: background 0.3s ease, transform 0.2s ease !important;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-btn:hover, .p-button:hover {
+  background: #e8e8e8 !important;
+  transform: scale(1.03) !important;
+}
+.p-formgroup-inline {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.p-field-radiobutton, .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.attribute-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.attribute-input label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+@media (max-width: 768px) {
+  .p-formgroup-inline {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
