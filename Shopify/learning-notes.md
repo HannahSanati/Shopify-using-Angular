@@ -80,3 +80,30 @@ These help:
 * Use a single source of truth.
 * Debug with time travel (undo/redo).
 * Handle async updates in a structured way.
+
+## 6-Modern Angular — Signals for State
+
+Since Angular 16, Signals provide fine-grained reactivity for state.
+
+Example:
+
+```ts
+@Injectable({ providedIn: 'root' })
+export class CounterStore {
+  count = signal(0);
+  double = computed(() => this.count() * 2);
+  increment() { this.count.update(c => c + 1); }
+}
+
+@Component({
+  selector: 'app-counter',
+  template: `
+    <p>Count: {{ store.count() }}</p>
+    <p>Double: {{ store.double() }}</p>
+    <button (click)="store.increment()">Increment</button>
+  `
+})
+export class CounterComponent {
+  constructor(public store: CounterStore) {}
+}
+```
