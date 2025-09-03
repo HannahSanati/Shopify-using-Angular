@@ -118,7 +118,7 @@ export class CounterComponent {
 | Signals Store        | Modern, fine-grained reactivity | Simple syntax, efficient updates   | Newer API (still evolving)     |
 
 
-## 8-titles what I learned
+## 8- titles what I learned
 three handshake
 http
 methods GET(bodyless) get data/ POST(body) post data insert / PUT (body) update / PATCH / DELETE (bodyless)
