@@ -127,7 +127,7 @@ path
 protocol version 1.1 & 2.0? more open connection 6 to infinity 
 body : any data that backend want 
 
-## 9-Learning TanStack Query
+## 9- Learning TanStack Query
 - In Angular, you usually use HttpClient + RxJS to fetch data, but you have to manage:
 * Loading states (isLoading)
 * Errors
