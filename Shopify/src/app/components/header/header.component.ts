@@ -48,10 +48,10 @@ export class HeaderComponent {
     ];
 
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentRoute = event.urlAfterRedirects;
-      });
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event) => {
+      this.currentRoute = (event as NavigationEnd).urlAfterRedirects;
+    });
   }
 
   navigateTo(route: string) {
