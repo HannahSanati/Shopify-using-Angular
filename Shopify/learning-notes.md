@@ -63,3 +63,20 @@ export class CartComponent {
 }
 ```
 Both components share the same CartService instance.
+
+## 5-Global / Complex State
+
+When the app grows and state is large & complex:
+
+* Use state management libraries like:
+    * NgRx (Redux pattern)
+    * NGXS
+    * Akita
+    * Angular Signals-based stores
+
+These help:
+
+* Centralize all app state in one place.
+* Use a single source of truth.
+* Debug with time travel (undo/redo).
+* Handle async updates in a structured way.
