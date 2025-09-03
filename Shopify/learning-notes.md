@@ -81,7 +81,7 @@ These help:
 * Debug with time travel (undo/redo).
 * Handle async updates in a structured way.
 
-## 6-Modern Angular — Signals for State
+## 6- Modern Angular — Signals for State
 
 Since Angular 16, Signals provide fine-grained reactivity for state.
 
