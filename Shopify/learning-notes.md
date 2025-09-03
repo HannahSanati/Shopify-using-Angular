@@ -64,7 +64,7 @@ export class CartComponent {
 ```
 Both components share the same CartService instance.
 
-## 5-Global / Complex State
+## 5- Global / Complex State
 
 When the app grows and state is large & complex:
 
