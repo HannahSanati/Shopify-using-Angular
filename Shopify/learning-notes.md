@@ -135,3 +135,14 @@ body : any data that backend want
 * Caching
 * Background updates
 TanStack Query automates all of this. It’s like a smart assistant for API calls.
+
+## 10-Setup QueryClient
+
+Think of QueryClient as the brain that manages all your queries.  
+(A query is just a request to fetch some data from a server, like an API call.)  
+
+But in **TanStack Query**, a query is much more powerful than a normal HttpClient call because it comes with built-in features.  
+
+A query = a data-fetching request.  
+
+You need to provide it at the **root of your Angular app**.
