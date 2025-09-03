@@ -21,7 +21,8 @@ export interface ProductDTO {
   stock: number;
   categoryId: number;
   categoryName?: string;
-  condition?: string;
+  // condition?: string;
+  condition?: ProductCondition;
   attributeValues?: any[];
   media?: { 
     url: string; 
@@ -34,7 +35,7 @@ export interface ProductDTO {
 //   price: number;
 //   stock: number;
 //   categoryId: number;
-//   condition?: ProductCondition;
+  // condition?: ProductCondition;
 //   attributeValues: any[];
 
 
