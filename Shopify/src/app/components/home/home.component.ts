@@ -16,7 +16,7 @@ import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, InputTextModule, ButtonModule, CardModule, CarouselModule, InputIcon],
+  imports: [CommonModule, InputTextModule, ButtonModule, CardModule, CarouselModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None,

@@ -2,7 +2,6 @@
   <div class="container row">
     @for(product of filteredProducts(); track product.id) {
       <p-card class="product-card">
-
         <p-carousel
           [value]="product.media || []"
           [numVisible]="1"
