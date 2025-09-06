@@ -1,60 +1,18 @@
-<!-- <div>
-  <div class="container row">
-    @for(product of productsQuery.data();track product.id){
-    <p-card class="product-card">
-      <ng-template #header>
-        <img
-          alt="{{ product.title }}"
-          class="card-image"
-          [src]="product.images?.[0]?.url || 'assets/default-product.jpg'"
-          style="
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-          "
-        />
-      </ng-template>
-      
-      <ng-template #title>{{ product.title }}</ng-template>
-      <ng-template #subtitle>{{ product.categoryName }}</ng-template>
-
-      <p>توضیحات: {{ product.description || "-" }}</p>
-      <p>قیمت: {{ product.price | number }}</p>
-      <p>موجودی: {{ product.stock }}</p>
-
-      <ng-template #footer>
-        <div class="row">
-          <p-button
-            label="خرید"
-            class="col-md-3"
-            (click)="buyProduct(product.id)" [disabled]="product.stock <= 0"
-          ></p-button>
-        </div>
-      </ng-template>
-    </p-card>
-    }
-  </div>
-</div>
-
- -->
-
 <div>
   <div class="container row">
-    @for(product of productsQuery.data() ?? []; track product.id) {
-      @if (product) {
-        <p-card class="product-card">
-          <p-carousel
-          [value]="product.media.length ? product.media : [{ url: 'assets/default-product.jpg', type: 'image' }]"
+    @for(product of products(); track product.id) {
+      <p-card class="product-card">
+
+        <p-carousel
+          [value]="product.media || []"
           [numVisible]="1"
           [numScroll]="1"
-          [circular]="true"
           [autoplayInterval]="3000"
           styleClass="custom-carousel"
-        >
+        >      
           <ng-template pTemplate="item" let-media>
             <ng-container>
-              @if (isVideo(media.url)) {
+              @if (isVideo(media)) {
                 <video
                   [src]="media.url"
                   class="card-media"
@@ -65,40 +23,37 @@
               @else {
                 <img
                   [src]="media.url"
-                  alt="{{ product.title }}"
+                  alt="Product media"
                   class="card-media"
                   style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px"
                 />
-              }
+              } 
             </ng-container>
           </ng-template>
         </p-carousel>
-          <ng-template #title>{{ product.title }}</ng-template>
-          <ng-template #subtitle>{{ product.categoryName }}</ng-template>
 
-          <p>توضیحات: {{ product.description || "-" }}</p>
-          <p>قیمت: {{ product.price | number }}</p>
-          <p>موجودی: {{ product.stock }}</p>
+        <ng-template #title>{{ product.title }}</ng-template>
+        <ng-template #subtitle>{{ product.categoryName }}</ng-template>
 
-          <ng-template #footer>
-            <div class="row">
-              <p-button
-                label="خرید"
-                class="col-md-3"
-                (click)="buyProduct(product.id)"
-                [disabled]="product.stock <= 0"
-              ></p-button>
-            </div>
-          </ng-template>
-        </p-card>
-      }
-    }
+        <p>توضیحات: {{ product.description || "-" }}</p>
+        <p>قیمت: {{ product.price | number }}</p>
+        <p>موجودی: {{ product.stock }}</p>
+
+        <ng-template #footer>
+          <div class="row">
+            <p-button
+              label="خرید"
+              class="col-md-3"
+              (click)="buyProduct(product.id)"
+              [disabled]="product.stock <= 0"
+            ></p-button>
+          </div>
+        </ng-template>
+
+      </p-card>
+    } 
   </div>
 </div>
-
-
-
-
 
      <!-- <div class="search-box">
       <p-inputicon class="pi pi-search"></p-inputicon>

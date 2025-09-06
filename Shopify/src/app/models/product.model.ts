@@ -9,6 +9,7 @@ export interface Product {
   stock: number;
   categoryId: number;
   categoryName?: string;
+  condition: ProductCondition;
   attributeValues: ProductAttributeValue[];
 }
 

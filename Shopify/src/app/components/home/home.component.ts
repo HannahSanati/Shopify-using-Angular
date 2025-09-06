@@ -27,16 +27,8 @@ export class HomeComponent implements OnInit {
 
   productsQuery = injectQuery(() => ({
     queryKey: ['products'],
-    queryFn: async () => {
-      const products = await firstValueFrom(
-        this.http.get<ProductDTO[]>(`${environment.apiUrl}/products`)
-      );
-      return products.map(product => ({
-        ...product,
-        media: product.media ?? [], 
-      }));
-    },
-    onError: (err: any) => console.error('Error fetching products:', err),
+    queryFn: () =>
+      firstValueFrom(this.http.get<ProductDTO[]>(`${environment.apiUrl}/products`)),
   }));
 
    // fill this one later!
@@ -58,78 +50,37 @@ export class HomeComponent implements OnInit {
     onError: (err) => console.error('Error buying product:', err)
   }));
     
-  
   buyProduct(productId: number) {
     this.buyProductMutation.mutate(productId);
   }
 
-  constructor(){
-    effect(()=>{
-      console.log(this.productsQuery.data())
-    })
+  constructor() {
+    effect(() => {
+      const data = this.productsQuery.data();
+      if (data) {
+        this.products.set(
+          data.map(product => ({
+            ...product,
+            media: product.media?.length
+              ? product.media
+              : [{ url: 'assets/default-product.jpg', type: 'image' }],
+          }))
+        );        
+      }
+    });
   }
+  
  
   ngOnInit(): void {
-    this.productsQuery.refetch();
   }
 
   
-  isVideo(url: string | undefined): boolean {
-    if (!url) return false;
-    return (
-      url.startsWith('data:video') ||
-      url.toLowerCase().endsWith('.mp4') ||
-      url.toLowerCase().endsWith('.webm') ||
-      url.toLowerCase().endsWith('.ogg')
-    );
+  isVideo(media: { url: string; type?: 'image' | 'video' }): boolean {
+    return media.type === 'video';
   }
 }
+
 // 🤓
-//   // private productService = inject(ProductService);
-//   private http = inject(HttpClient);
-//   // private router= Router
-
-//   // productDetails: Product[] = [];
-//   // allProducts: Product[] = [];
-//   // searchKeyword: string = '';
-//   // showLoadButton: boolean = true;
-//   // page: number = 1;
-
-//   // Products signal
-//   products = signal<ProductDTO[]>([]);
-//   // navigateTo(route: string) {
-//   //   this.router.navigate([route]);
-//   // }
-
-
-//   productsQuery = injectQuery(() => ({
-//     queryKey: ['products'],
-//     queryFn: () =>
-//       firstValueFrom(
-//         this.http.get<ProductDTO[]>(`${environment.apiUrl}/products`)
-//       ),
-//     onSuccess: (data: ProductDTO[]) => {
-//       console.log('Products fetched from local JSON:', data);
-//       this.products.set(data);
-//     },
-//     onError: (err: any) => console.error('Error fetching products:', err),
-//   }));
-
-
-// buyingProduct(productId: number) {
-//   this.productService.buyProduct(productId).subscribe({
-//     next: (res) => {
-//       console.log('Purchase successful:', res);
-//       //this is foooooor refresh products after buying
-//       this.productService.getProducts().subscribe({
-//         next: (data) => this.products.set(data),
-//         error: (err) => console.error('Error fetching products:', err)
-//       });
-//     },
-//     error: (err) => console.error('Error buying product:', err)
-//   });
-// }
-
 //--------------------------------------------------------------------------------------------------------
 //Method to filter products based on the search keyword
 // searchByKeyword(keyword: string) {
