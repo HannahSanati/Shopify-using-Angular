@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, effect, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, computed, effect, inject, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,18 +10,22 @@ import { environment } from '../../../environments/environment';
 import { ProductDTO } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { CarouselModule } from 'primeng/carousel';
+import { InputIcon } from "primeng/inputicon";
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, InputTextModule, ButtonModule, CardModule, CarouselModule],
+  imports: [CommonModule, InputTextModule, ButtonModule, CardModule, CarouselModule, InputIcon],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
   private http = inject(HttpClient);
-  private producservice = inject(ProductService);
+  private searchService = inject(SearchService);
+
+  @Input() searchQuery = '';
 
   products = signal<ProductDTO[]>([]);
 
@@ -49,7 +53,16 @@ export class HomeComponent implements OnInit {
     },
     onError: (err) => console.error('Error buying product:', err)
   }));
-    
+  
+  filteredProducts = computed(() => {
+    const query = this.searchService.searchQuery().toLowerCase();
+    return this.products().filter(p =>
+      p.title.toLowerCase().includes(query) ||
+      p.categoryName?.toLowerCase().includes(query)
+    );
+  });
+
+
   buyProduct(productId: number) {
     this.buyProductMutation.mutate(productId);
   }
