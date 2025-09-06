@@ -41,7 +41,6 @@ import {
 } from '../../../models/attribute.model';
 import {
   CategoryTreeNodeDTO,
-  ProductCondition,
 } from '../../../models/category.model';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
@@ -56,6 +55,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ProductCondition } from '../../../models/attribute.model';
 
 @Component({
   selector: 'app-product-form',

@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
-import { ProductConditionTranslate } from '../../../../models/category.model';
+import { ProductConditionTranslate } from '../../../../models/attribute.model';
 import { Router } from '@angular/router';
 import {
   injectMutation,
