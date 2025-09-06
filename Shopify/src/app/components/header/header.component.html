@@ -5,6 +5,11 @@
 
   <div class="search-box" *ngIf="currentRoute === '/home'">
     <p-inputicon class="pi pi-search"></p-inputicon>
-    <input type="text" pInputText placeholder="Search" />
+    <input
+      type="text"
+      pInputText
+      placeholder="Search"
+      (input)="onSearch($event)"
+    />
   </div>
 </p-menubar>

@@ -1,6 +1,6 @@
 <div>
   <div class="container row">
-    @for(product of products(); track product.id) {
+    @for(product of filteredProducts(); track product.id) {
       <p-card class="product-card">
 
         <p-carousel
@@ -54,8 +54,3 @@
     } 
   </div>
 </div>
-
-     <!-- <div class="search-box">
-      <p-inputicon class="pi pi-search"></p-inputicon>
-      <input type="text" pInputText placeholder="Search" />
-    </div> -->

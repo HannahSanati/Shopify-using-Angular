@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputIcon } from 'primeng/inputicon';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -28,8 +29,9 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent {
   items: MenuItem[];
   currentRoute: string = '';
+  private searchService = inject(SearchService);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, ) {
     this.items = [
       { label: 'خانه', icon: 'pi pi-home', command: () => this.navigateTo('home') },
       { 
@@ -54,6 +56,11 @@ export class HeaderComponent {
     });
   }
 
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchService.searchQuery.set(value); 
+  }
+  
   navigateTo(route: string) {
     this.router.navigate([route]);
   }
