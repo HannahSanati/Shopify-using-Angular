@@ -146,3 +146,13 @@ But in **TanStack Query**, a query is much more powerful than a normal HttpClien
 A query = a data-fetching request.  
 
 You need to provide it at the **root of your Angular app**.
+
+
+## 11-using TansTack
+ first we need to define query to use it later as tanstackQuery
+ ```ts
+  // Query definition
+  query = injectQuery(() => ({
+    queryKey: ['users'],   // Unique key for caching
+    queryFn: () => this.http.get<any[]>('https://jsonplaceholder.typicode.com/users'),
+  }));
