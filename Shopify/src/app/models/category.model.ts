@@ -15,8 +15,8 @@ export interface CategoryDTO {
   condition?: ProductCondition;
 }
 
-
 export interface CategoryTreeNodeDTO {
+[x: string]: any;
   key: string;
   label: string;
   data: { id: number; description: string; parentId: number | null };

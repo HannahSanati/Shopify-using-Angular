@@ -91,29 +91,18 @@ export class ProductFormComponent implements OnInit, OnChanges {
   productAdded = output<void>();
   private fb = inject(FormBuilder);
   private productService = inject(ProductService);
-  private categoryService = inject(CategoryService);
-  private attributeService = inject(AttributeService);
+  // private categoryService = inject(CategoryService);
+  // private attributeService = inject(AttributeService);
   private messageService = inject(MessageService);
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
-  attributesQuery: any; //////////
+  attributesQuery: any; //////////I also add this
 
-
-
-  
   productImages: File[] = [];
   productImagesPreview: string[] = [];
 
 
-  //  mutation for form value changes
-  // formValueMutation = injectMutation(() => ({
-  //   mutationFn: (formValue: any) => {
-  //     console.log('Form changed:', formValue);
-  //     return Promise.resolve();
-  //   },
-  // }));
-
-  // Fetch categories
+  // here we use categoryQuery for fetching categories
   categoriesQuery = injectQuery(() => ({
     queryKey: ['categories'],
     queryFn: () =>
@@ -132,7 +121,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     },
   }));
 
-  // Fetch products (for editing)
+  // this one is for fetching products (and we want that for editing)
   productsQuery = injectQuery(() => ({
     queryKey: ['products'],
     queryFn: () =>
@@ -140,29 +129,21 @@ export class ProductFormComponent implements OnInit, OnChanges {
     enabled: !!this.editingProductId(), // only fetch if editing
   }));
 
-  // Product add/update
-  // productMutation = injectMutation(() => ({
-  //   mutationFn: (productDTO: ProductDTO) => {
-  //     if (this.editingProductId() !== null) {
-  //       return this.http
-  //         .put<ProductDTO>(
-  //           `${environment.apiUrl}/products/${this.editingProductId()}`,
-  //           productDTO
-  //         )
-  //         .toPromise();
-  //     }
-  //     return this.http
-  //       .post<ProductDTO>(`${environment.apiUrl}/products`, productDTO)
-  //       .toPromise();
   productMutation = injectMutation(() => ({
-    mutationFn: async (formData: FormData) => {
+    mutationFn: async (productDTO: ProductDTO) => {
       if (this.editingProductId() !== null) {
         return await firstValueFrom(
-          this.http.put(`${environment.apiUrl}/products/${this.editingProductId()}`, formData)
+          this.http.put<ProductDTO>(
+            `${environment.apiUrl}/products/${this.editingProductId()}`,
+            productDTO,
+            { headers: { 'Content-Type': 'application/json' } }
+          )
         );
       }
       return await firstValueFrom(
-        this.http.post(`${environment.apiUrl}/products`, formData)
+        this.http.post<ProductDTO>(`${environment.apiUrl}/products`, productDTO, {
+          headers: { 'Content-Type': 'application/json' },
+        })
       );
     },
     onSuccess: () => {
@@ -180,10 +161,10 @@ export class ProductFormComponent implements OnInit, OnChanges {
       this.messageService.add({
         severity: 'error',
         summary: 'خطا',
-        detail: 'عملیات ثبت محصول ناموفق بود', 
-        life: 3000, 
+        detail: 'عملیات ثبت محصول ناموفق بود',
+        life: 3000,
       });
-    }, 
+    },
   }));
 
   result = this.categoriesQuery;
@@ -200,11 +181,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
       attributeValues: this.fb.array([]),
     });
 
-    // Subscribe to form changes
-    // this.productForm.valueChanges
-    // .pipe(debounceTime(300))
-    // .subscribe((v) => this.formValueMutation.mutate(v)); //HERE!
-
     this.productForm.get('categoryId')?.valueChanges.subscribe((categoryId) => {
       if (categoryId) {
         this.loadAttributes(categoryId);
@@ -218,8 +194,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
       this.productForm.patchValue({ categoryId: this.categoryId() });
       this.loadAttributes(this.categoryId()!);
     }
-
-    // Edit mode check
+////////////////this one is for edit pretty girl
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editingProductId.set(Number(id));
@@ -245,18 +220,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
       this.editingProductId.set(this.productToEdit.id);
     }
   }
-
-  // private fillForm(product: ProductDTO) {
-  //   this.editingProductId.set(product.id);
-  //   this.productForm.patchValue({
-  //     title: product.title,
-  //     description: product.description,
-  //     price: product.price,
-  //     stock: product.stock,
-  //     categoryId: product.categoryId,
-  //     condition: product.condition,
-  //   });
-  // }
 
   private patchForm(product: ProductDTO) {
     this.productForm.patchValue({
@@ -297,20 +260,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
       this.productForm.patchValue({ categoryId });
     }
   }
-  // onCategorySelect(event: any) {
-  //   const categoryId = event.node?.data?.id;
-  //   if (categoryId) {
-  //     this.productForm.patchValue({ categoryId });
-  //     this.loadAttributes(categoryId);
-  //   } else {
-  //     this.messageService.add({
-  //       severity: 'warn',
-  //       summary: 'هشدار',
-  //       detail: 'دسته‌بندی نامعتبر انتخاب شد',
-  //       life: 3000,
-  //     });
-  //   }
-  // }
 
   get attributeValuesFormArray(): FormArray {
     return this.productForm.get('attributeValues') as FormArray;
@@ -460,85 +409,78 @@ export class ProductFormComponent implements OnInit, OnChanges {
   }
 
 
-
-
-
 //////////////////////
 
-  onSubmit() {
-    if (!this.productForm.valid) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'هشدار',
-        detail: 'لطفاً فرم را کامل و صحیح پر کنید.',
-        life: 3000,
-      });
-      return;
+onSubmit() {
+  if (!this.productForm.valid) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'هشدار',
+      detail: 'لطفاً فرم را کامل و صحیح پر کنید.',
+      life: 3000,
+    });
+    return;
+  }
+
+  const attributes = this.attributeValuesFormArray.value.map((val: any, i: number) => {
+    const attr = this.categoryAttributes()[i];
+    let value: any = val.value;
+
+    switch (attr.attributeType) {
+      case AttributeType.NUMBER:
+        value = value !== null && value !== undefined ? Number(value) : 0;
+        break;
+      case AttributeType.BOOLEAN:
+        value = Boolean(value);
+        break;
+      case AttributeType.MULTISELECT:
+        value = Array.isArray(value) ? value.join(',') : '';
+        break;
+      case AttributeType.SELECT:
+        value = value != null ? value.toString() : '';
+        break;
+      default:
+        value = value != null ? value.toString() : '';
     }
 
-    const attributes = this.attributeValuesFormArray.value.map(
-      (val: any, i: number) => {
-        const attr = this.categoryAttributes()[i];
-        let value: any = val.value;
+    return {
+      attributeId: attr.attributeId,
+      value,
+    };
+  });
 
-        switch (attr.attributeType) {
-          case AttributeType.NUMBER:
-            value = value !== null && value !== undefined ? Number(value) : 0;
-            break;
-          case AttributeType.BOOLEAN:
-            value = Boolean(value);
-            break;
-          case AttributeType.MULTISELECT:
-            value = Array.isArray(value) ? value.join(',') : '';
-            break;
-          case AttributeType.SELECT:
-            value = value != null ? value.toString() : '';
-            break;
-          default:
-            value = value != null ? value.toString() : '';
-        }
+  const productDTO: ProductDTO = {
+    id: Math.floor(Math.random() * 1000000),
+    title: this.productForm.get('title')?.value?.toString() || '',
+    description: this.productForm.get('description')?.value?.toString() || '',
+    price: Number(this.productForm.get('price')?.value) || 0,
+    stock: Number(this.productForm.get('stock')?.value) || 0,
+    categoryId: Number(this.productForm.get('categoryId')?.value),
+    attributeValues: attributes,
+    condition: this.productForm.get('condition')?.value ?? ProductCondition.NEW,
+  };
 
-        return {
-          attributeId: attr.attributeId,
-          value,
-        };
-      }
-    );
-
-///////////////////
-if (!this.productForm.valid) return;
-
-const formData = new FormData();
-formData.append(
-  'product',
-  new Blob([JSON.stringify(this.productForm.value)], { type: 'application/json' })
-);
-
-this.productImages.forEach(file => {
-  formData.append('files', file, file.name);
-
-  // 👇 Log the exact form-data entry you’re sending
-  console.log(`📤 Sending file to backend: ${file.name}`);
-});
-
-// Mutation / API call
-this.productMutation.mutate(formData as any);
-
-console.log('🚀 Full FormData ready to send:', formData);
-
-//////////////////
-
-    // const productDTO: ProductDTO = {
-    //   title: this.productForm.get('title')?.value?.toString() || '',
-    //   description: this.productForm.get('description')?.value?.toString() || '',
-    //   price: Number(this.productForm.get('price')?.value) || 0,
-    //   stock: Number(this.productForm.get('stock')?.value) || 0,
-    //   categoryId: Number(this.productForm.get('categoryId')?.value),
-    //   attributeValues: attributes,
-    //   condition:
-    //     this.productForm.get('condition')?.value ?? ProductCondition.NEW,
-    //   id: 0,
-    // };
-    // this.productMutation.mutate(productDTO);
-  }
+  this.productMutation.mutate(productDTO, {
+    onSuccess: (createdProduct) => {
+      console.log('✅ Product created:', createdProduct);
+      this.resetForm();
+      this.productAdded.emit();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'موفق',
+        detail: 'محصول با موفقیت ثبت شد',
+        life: 3000,
+      });
+    },
+    onError: (err) => {
+      console.error('❌ Product creation failed:', err);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'خطا',
+        detail: 'ثبت محصول شکست خورد',
+        life: 3000,
+      });
+    },
+  });
+}
 }

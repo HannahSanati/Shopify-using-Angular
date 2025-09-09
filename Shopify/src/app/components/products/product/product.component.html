@@ -32,22 +32,34 @@
       </div>
       <div class="form-group">
         <label for="categoryId">دسته‌بندی</label>
+        
+        <!-- <pre>{{ categoriesQuery.data() | json }}</pre> -->
         <p-treeSelect
-          id="categoryId"
-          formControlName="categoryId"
-          [options]="categoriesQuery.data() || []"
-          placeholder="انتخاب دسته‌بندی"
-          display="chip"
-          (onNodeSelect)="onCategorySelect($event)"
-          selectionMode="single"
-          [filter]="true"
-        ></p-treeSelect>
+        id="categoryId"
+        formControlName="categoryId"
+        [options]="categoriesQuery.data() || []"
+        placeholder="انتخاب دسته‌بندی"
+        display="chip"
+        selectionMode="single"
+        [filter]="true"
+        optionValue="value"
+      ></p-treeSelect>
 
         @if (productForm.get('categoryId')?.touched &&
         productForm.get('categoryId')?.invalid) {
         <span class="error">دسته‌بندی اجباری است</span>
         }
       </div>
+
+      <!-- <div *ngIf="selectedAttributes.length > 0">
+        <h4>Attributes for selected category:</h4>
+        <ul>
+          <li *ngFor="let attr of selectedAttributes">
+            {{ attr.attributeName }}: {{ attr.value || '—' }}
+          </li>
+        </ul>
+      </div> -->
+      
       <div class="form-group">
         <label for="price">قیمت</label>
         <p-inputNumber
@@ -97,11 +109,7 @@
           </div>
         </div>
       </div>
-<!-- file uploader -->
-      <!-- <div class="p-field">
-        <label for="file">تصویر محصول</label>
-        <input id="file" type="file" (change)="onFileBrowse($event)" class="p-inputtext p-component" />
-      </div>  -->
+      <!-- dropzone -->
       <div
       class="dropzone"
       (drop)="onDrop($event)"
@@ -123,8 +131,7 @@
       multiple
       accept="image/*"
       style="display:none;"
-    />
-    <!-- (change)="onFileSelected($event)"  has to be in <input>-->
+      (change)="onFileSelected($event)"/>
 
     
     <!-- Previews -->
