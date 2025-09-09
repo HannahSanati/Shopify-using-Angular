@@ -29,6 +29,10 @@ export class ProductService extends BaseService {
       catchError(this.handleError)
     );
   }
+  // addProduct(formData: FormData) {
+  //   return this.http.post(`${environment.apiUrl}/products`, formData);
+  // }
+  
   getProductAttributes(productId: number): Observable<ProductAttributeValue[]> {
     return this.get<ProductAttributeValue[]>(`${this.productAttributesEndpoint}?productId=${productId}`).pipe(
       catchError(this.handleError)
@@ -70,4 +74,18 @@ buyProduct(productId: number) {
     const url = `${this.apiUrl}/${id}`;
     return this.put<ProductDTO>(url, product);
   }
+
+
+// updateProduct(id: number, formData: FormData) {
+//   return this.http.put(`${environment.apiUrl}/products/${id}`, formData);
+// }
+
+//////////
+uploadMedia(productId: number, file: File, type: string): Observable<ProductDTO> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('type', type);
+
+  return this.http.post<ProductDTO>(`/products/${productId}/upload`, formData);
+}
 }

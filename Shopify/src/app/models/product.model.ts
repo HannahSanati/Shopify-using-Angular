@@ -22,23 +22,13 @@ export interface ProductDTO {
   categoryId: number;
   categoryName?: string;
   // condition?: string;
-  condition: ProductCondition;
+  condition: ProductCondition; //should add on backend :))))))
   attributeValues?: any[];
   media?: { 
     url: string; 
     type?: 'image' | 'video';
   }[];
 }
-//   id: number;
-//   title: string;
-//   description: string;
-//   price: number;
-//   stock: number;
-//   categoryId: number;
-  // condition?: ProductCondition;
-//   attributeValues: any[];
-
-
 
 export interface ProductAttributeValue {
   id: number;
