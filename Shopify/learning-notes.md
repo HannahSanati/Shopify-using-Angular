@@ -156,3 +156,18 @@ You need to provide it at the **root of your Angular app**.
     queryKey: ['users'],   // Unique key for caching
     queryFn: () => this.http.get<any[]>('https://jsonplaceholder.typicode.com/users'),
   }));
+  ```
+
+## 12-Promise
+
+- Represents a single asynchronous value that will arrive once in the future.  
+- Either resolves with a value or rejects with an error.  
+- Cannot be canceled once started.  
+```ts
+const promise = new Promise<number>((resolve, reject) => {
+  setTimeout(() => resolve(42), 1000);
+});
+
+promise.then(value => console.log(value)); // prints 42 after 1s
+```
+## 13
