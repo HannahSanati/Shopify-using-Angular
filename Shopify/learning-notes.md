@@ -170,4 +170,15 @@ const promise = new Promise<number>((resolve, reject) => {
 
 promise.then(value => console.log(value)); // prints 42 after 1s
 ```
-## 13
+## 13- JWT (JSON Web Token) in Programming
+
+- **Definition:** JWT is a compact, URL-safe way to represent claims between two parties. It is often used for authentication and information exchange in web applications.  
+- **Structure:** A JWT has three parts:
+  1. **Header** – Specifies the token type (JWT) and signing algorithm (e.g., HS256).
+  2. **Payload** – Contains the claims/data (e.g., user ID, roles).
+  3. **Signature** – Ensures the token is not tampered with; created using a secret key and the header + payload.
+- **Use Case:** After logging in, a server generates a JWT for the client. The client sends the JWT with each request, and the server verifies it to authorize actions.
+- **Advantages:**
+  - Stateless authentication (no need to store session on the server)
+  - Easy to use in web and mobile apps
+  - Can carry user data securely
