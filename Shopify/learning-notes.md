@@ -182,3 +182,71 @@ promise.then(value => console.log(value)); // prints 42 after 1s
   - Stateless authentication (no need to store session on the server)
   - Easy to use in web and mobile apps
   - Can carry user data securely
+
+
+## 14- Angular Lifecycle Hooks
+
+In Angular, lifecycle hooks let you run code at specific moments in a component’s life — from creation to destruction.
+They are important for managing state, subscriptions, and DOM interactions efficiently.
+
+1. What Are Lifecycle Hooks?
+
+Each Angular component goes through a lifecycle:
+	1.	It is created.
+	2.	It is rendered and updated.
+	3.	It is destroyed.
+
+Lifecycle hooks are special methods you can use to perform actions at these stages.
+
+2. Common Lifecycle Hooks
+	•	ngOnChanges() → Runs when an @Input() property changes. Useful to react to parent updates.
+	•	ngOnInit() → Runs once after component creation. Good for initialization or fetching data.
+	•	ngDoCheck() → Runs on every change detection cycle. Used for custom change tracking.
+	•	ngAfterViewInit() → Runs after the component’s view (and its child views) are fully initialized. Good for DOM access.
+	•	ngAfterViewChecked() → Runs after every view check. Good for debugging.
+	•	ngOnDestroy() → Runs before the component is destroyed. Used to clean up resources.
+
+3. Example
+
+@Component({
+selector: ‘app-user-list’,
+template: <ul> <li *ngFor="let user of users">{{ user.name }}</li> </ul>
+})
+export class UserListComponent implements OnInit, OnDestroy {
+users: any[] = [];
+private sub?: Subscription;
+
+constructor(private http: HttpClient) {}
+
+ngOnInit() {
+console.log(‘Component initialized’);
+this.sub = this.http
+.get<any[]>(‘https://jsonplaceholder.typicode.com/users’)
+.subscribe(data => this.users = data);
+}
+
+ngOnDestroy() {
+console.log(‘Component destroyed’);
+this.sub?.unsubscribe();
+}
+}
+
+4. Why It’s Important
+	•	Prevents memory leaks
+	•	Keeps state predictable
+	•	Cleans up async operations (timers, subscriptions)
+	•	Improves performance
+
+5. Modern Angular Tip (Angular 17+)
+
+You can use DestroyRef for automatic cleanup without manually implementing ngOnDestroy:
+
+constructor(destroyRef: DestroyRef) {
+effect(() => console.log(‘Reactive logic here’), { destroyRef });
+}
+
+Summary
+	•	ngOnInit → Setup or fetch data
+	•	ngOnChanges → Respond to @Input() changes
+	•	ngAfterViewInit → Access child DOM
+	•	ngOnDestroy → Cleanup and unsubscribe
