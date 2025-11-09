@@ -190,7 +190,6 @@ In Angular, lifecycle hooks let you run code at specific moments in a componentâ
 They are important for managing state, subscriptions, and DOM interactions efficiently.
 
 1. What Are Lifecycle Hooks?
-
 Each Angular component goes through a lifecycle:
 	1.	It is created.
 	2.	It is rendered and updated.
